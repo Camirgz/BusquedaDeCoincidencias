@@ -15,7 +15,7 @@ Bienvenido al Sistema de Sospechosos del Organismo de Investigación Judicial (O
 3. **Resultados y Eliminación:**
     - Muestra resultados ordenados por índice de coincidencia descendente.
     - Permite eliminar sospechosos de los resultados.
-4. **Historial de Búsquedas:**
+4. **Clases.Historial de Búsquedas:**
     - Almacena un historial de búsquedas realizadas.
 
 ### Formato de Sospechas.csv
