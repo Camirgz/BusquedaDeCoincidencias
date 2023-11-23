@@ -21,7 +21,7 @@ Bienvenido al Sistema de Sospechosos del Organismo de Investigación Judicial (O
 ### Formato de Sospechas.csv
 
 ```java
-Nombre;Provincia;Canton;Edad;Genero;Estado civil;Pelo;Altura
+Nombre,Provincia,Canton,Edad,Genero,Estado civil,Pelo,Altura
 ```
 
 **Especificaciones para una persona válida**
