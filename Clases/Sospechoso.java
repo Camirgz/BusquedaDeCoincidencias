@@ -1,3 +1,4 @@
+package Clases;
 public class Sospechoso{
     private String nombre;
     private String provincia;
