@@ -25,7 +25,8 @@ public class Sospechoso{
     public void imprimirSospechoso(){
         System.out.println("Nombre: " + nombre + "\nResidencia: " + provincia + ", " + canton + "\nEdad: " + edad + ", genero: " + genero + "\nEstado Civil: " + estadoCivil + "\nColor de Pelo: " + pelo + ", altura" + altura);
     }
-    
+
+    //Getters
     public String getNombre(){
         return nombre;
     }
@@ -56,5 +57,9 @@ public class Sospechoso{
     
     public int getAltura(){
         return altura;
+    }
+
+    public void puntos(){
+        if
     }
 }

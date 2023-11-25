@@ -1,6 +1,10 @@
 package Clases;
 
 import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+;
 
 public class Interaccion {
     //Iniciar
@@ -10,6 +14,22 @@ public class Interaccion {
 
     public void eleccion(){
         System.out.println("=== Bienvenido al sistema de sospechosos del OIJ ===");
+        String csvFile = "Sospechosos.csv";
+        try{
+            BufferedReader br = new BufferedReader(new FileReader(csvFile));
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                String[] datos = line.split(",");
+
+                if (validacion.array(datos)) {
+                    Sospechoso sospechoso = new Sospechoso(datos);
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error tipo: " + e.getMessage());;
+        }
+
         //Poner codigo acá para pedir datos de usuarios
         System.out.println("Ingrese los datos del sospechoso/a por buscar");
         while(true){
