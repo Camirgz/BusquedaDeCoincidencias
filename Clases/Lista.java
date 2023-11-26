@@ -46,4 +46,8 @@ public class Lista
             auxiliar = auxiliar.getSiguiente();
         }
     }
+    
+    public Nodo getCabeza(){
+        return this.cabeza;
+    }
 }
