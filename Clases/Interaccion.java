@@ -71,7 +71,7 @@ public class Interaccion{
         System.out.println("Ingrese altura por buscar: ");
         String altura = scanner.nextLine();
         
-        //metodo para hacer el arbol binario a partir del sistema de puntos.
+        
         
         while(true){
             System.out.println("Ingrese [S] para salir, [B] para buscar o [H] para ver el historial");
@@ -79,9 +79,11 @@ public class Interaccion{
             if(input(entrada)){
                 if(entrada.equals("B")){
                     mostrarCoincidencias();
+                    //metodo para hacer el arbol binario a partir del sistema de puntos.
                 }
                 if (entrada.equals("H")){
                     mostrarHistorial();
+                    //metodo para mostrar la lista de historial.
                 }
                 if (entrada.equals("S")){
                     System.out.println("Gracias!");
