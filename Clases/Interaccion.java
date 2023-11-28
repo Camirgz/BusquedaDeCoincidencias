@@ -1,3 +1,5 @@
+package Clases;
+
 import java.util.Scanner;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -49,28 +51,63 @@ public class Interaccion{
         Scanner scanner = new Scanner (System.in);
         
         System.out.println("Ingrese los datos del sospechoso/a por buscar");
-        
-        System.out.println("Ingrese nombre por buscar: ");
-        String nombre = scanner.nextLine();
-        
-        System.out.println("Ingrese provincia por buscar: ");
-        String provincia = scanner.nextLine();
-        
-        System.out.println("Ingrese canton por buscar: ");
-        String canton = scanner.nextLine();
-        
-        System.out.println("Ingrese edad por buscar: ");
-        String edad = scanner.nextLine();
-        
-        System.out.println("Ingrese genero por buscar: ");
-        String genero = scanner.nextLine();
-        
-        System.out.println("Ingrese color de pelo por buscar: ");
-        String colorPelo = scanner.nextLine();
-        
-        System.out.println("Ingrese altura por buscar: ");
-        String altura = scanner.nextLine();
-        
+
+        while(true){
+            System.out.println("Ingrese nombre por buscar: ");
+            String nombre = scanner.nextLine();
+            if(strings(nombre)){
+                break;
+            }
+        }
+
+        while(true){
+            System.out.println("Ingrese provincia por buscar: ");
+            String provincia = scanner.nextLine();
+            if (strings(provincia)) {
+                break;
+            }
+        }
+
+        while(true){
+            System.out.println("Ingrese canton por buscar: ");
+            String canton = scanner.nextLine();
+            if (strings(canton)) {
+                break;
+            }
+        }
+
+        while(true){
+            System.out.println("Ingrese edad por buscar: ");
+            String edad = scanner.nextLine();
+            if(edad(edad)){
+                break;
+            }
+        }
+
+        while(true){
+            System.out.println("Ingrese genero por buscar: ");
+            String genero = scanner.nextLine();
+            if(genero(genero)){
+                break;
+            }
+        }
+
+        while(true){
+            System.out.println("Ingrese color de pelo por buscar: ");
+            String colorPelo = scanner.nextLine();
+            if (pelo(colorPelo)) {
+            break;
+            }
+        }
+
+        while(true){
+            System.out.println("Ingrese altura por buscar: ");
+            String altura = scanner.nextLine();
+            if(altura(altura)){
+                break;
+            }
+        }
+
         
         
         while(true){
