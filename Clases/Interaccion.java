@@ -6,6 +6,7 @@ import java.io.IOException;
 public class Interaccion{
     
     Lista sospechosos = new Lista();
+    Lista historial = new Lista();
     
     public void interaccion(){
         System.out.println("=== Bienvenido al sistema de sospechosos del OIJ ===");
@@ -50,10 +51,19 @@ public class Interaccion{
         Scanner scanner = new Scanner (System.in);
         
         System.out.println("Ingrese los datos del sospechoso/a por buscar");
+        
+        String nombre;
+        String provincia;
+        String canton;
+        String edad;
+        String genero;
+        String estadoCivil;
+        String colorPelo;
+        String altura;
 
         while(true){
             System.out.println("Ingrese nombre por buscar: ");
-            String nombre = scanner.nextLine();
+            nombre = scanner.nextLine();
             if(strings(nombre)){
                 break;
             }
@@ -61,7 +71,7 @@ public class Interaccion{
 
         while(true){
             System.out.println("Ingrese provincia por buscar: ");
-            String provincia = scanner.nextLine();
+            provincia = scanner.nextLine();
             if (strings(provincia)) {
                 break;
             }
@@ -69,7 +79,7 @@ public class Interaccion{
 
         while(true){
             System.out.println("Ingrese canton por buscar: ");
-            String canton = scanner.nextLine();
+            canton = scanner.nextLine();
             if (strings(canton)) {
                 break;
             }
@@ -77,7 +87,7 @@ public class Interaccion{
 
         while(true){
             System.out.println("Ingrese edad por buscar: ");
-            String edad = scanner.nextLine();
+            edad = scanner.nextLine();
             if(edad(edad)){
                 break;
             }
@@ -85,23 +95,31 @@ public class Interaccion{
 
         while(true){
             System.out.println("Ingrese genero por buscar: ");
-            String genero = scanner.nextLine();
+            genero = scanner.nextLine();
             if(genero(genero)){
+                break;
+            }
+        }
+        
+        while(true){
+            System.out.println("Ingrese el estado civil: ");
+            estadoCivil = scanner.nextLine();
+            if (estadoCivil(estadoCivil)){
                 break;
             }
         }
 
         while(true){
             System.out.println("Ingrese color de pelo por buscar: ");
-            String colorPelo = scanner.nextLine();
+            colorPelo = scanner.nextLine();
             if (pelo(colorPelo)) {
-            break;
+                break;
             }
         }
 
         while(true){
             System.out.println("Ingrese altura por buscar: ");
-            String altura = scanner.nextLine();
+            altura = scanner.nextLine();
             if(altura(altura)){
                 break;
             }
@@ -112,7 +130,7 @@ public class Interaccion{
             String entrada = scanner.nextLine();
             if(input(entrada)){
                 if(entrada.equalsIgnoreCase("B")){
-                    mostrarCoincidencias();
+                    sospechosos.Busqueda(nombre, provincia, canton, edad, genero, estadoCivil, colorPelo, altura, sospechosos);
                     //metodo para hacer el arbol binario a partir del sistema de puntos.
                 }
                 if (entrada.equalsIgnoreCase("H")){
@@ -246,9 +264,5 @@ public class Interaccion{
     
         public void mostrarHistorial(){
         System.out.println("Historial");
-    }
-
-    public void mostrarCoincidencias(){
-        System.out.println("Las coincidencias son:");
     }
 }
