@@ -1,32 +1,27 @@
 public class Arbol{
     Nodo raiz;
-    String nombre;
     
-    public Arbol (String nombre){
-        this.nombre = nombre;
+    public Nodo getRaiz(){
+        return this.raiz;
     }
     
     public class Nodo{
         private Sospechoso sospechoso;
         private int indice_coincidencia;
-        private int id = 0;
         private Nodo hijo_izquierda;
         private Nodo hijo_derecha;
         
         public Nodo (String [] informacion){
             this.sospechoso = new Sospechoso (informacion);
-            this.id = id++;
         }
         
         public Nodo (Sospechoso sospechoso){
             this.sospechoso = sospechoso;
-            this.id = id++;
         }
         
         public Nodo (Sospechoso sospechoso, int indice_coincidencia){
             this.sospechoso = sospechoso;
             this.indice_coincidencia = indice_coincidencia;
-            this.id = id++;
         }
         
         public void setHijo_izquierda (Nodo a){
@@ -56,10 +51,6 @@ public class Arbol{
         public int getIndice_Coincidencia(){
             return this.indice_coincidencia;
         }
-        
-        public int getId(){
-            return this.id;
-        }
     }
     
     public void insertar(Sospechoso sospechoso, int indice_coincidencia) {
@@ -87,12 +78,16 @@ public class Arbol{
     //eliminar nodo
     
         private void imprimirInterno (Nodo inicio) {
-        if (inicio.getHijo_izquierda() != null) {
-            imprimirInterno (inicio.getHijo_izquierda());
-        }
-        System.out.println( inicio.getId() );
+        int contador = 1;
+            
         if (inicio.getHijo_derecha() != null) {
             imprimirInterno (inicio.getHijo_derecha());
+        }
+        inicio.getSospechoso().imprimirSospechoso();
+        System.out.println("" + contador + "\n");
+        contador++;
+        if (inicio.getHijo_izquierda() != null) {
+            imprimirInterno (inicio.getHijo_izquierda());
         }
     }
     
