@@ -1,5 +1,3 @@
-package Clases;
-
 import java.util.Scanner;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -12,6 +10,7 @@ public class Interaccion{
     public void interaccion(){
         System.out.println("=== Bienvenido al sistema de sospechosos del OIJ ===");
         CargarArchivos();
+        MenuPrincipal();
     }
     
     public void CargarArchivos(){
@@ -44,7 +43,7 @@ public class Interaccion{
             }
         }
         
-        System.out.println("El archivo fue validado");
+        System.out.println("El archivo fue validado\n");
     }
     
     public void MenuPrincipal(){
@@ -107,22 +106,20 @@ public class Interaccion{
                 break;
             }
         }
-
-        
         
         while(true){
             System.out.println("Ingrese [S] para salir, [B] para buscar o [H] para ver el historial");
             String entrada = scanner.nextLine();
             if(input(entrada)){
-                if(entrada.equals("B")){
+                if(entrada.equalsIgnoreCase("B")){
                     mostrarCoincidencias();
                     //metodo para hacer el arbol binario a partir del sistema de puntos.
                 }
-                if (entrada.equals("H")){
+                if (entrada.equalsIgnoreCase("H")){
                     mostrarHistorial();
                     //metodo para mostrar la lista de historial.
                 }
-                if (entrada.equals("S")){
+                if (entrada.equalsIgnoreCase("S")){
                     System.out.println("Gracias!");
                     break;
                 }
@@ -177,6 +174,7 @@ public class Interaccion{
 
     public boolean pelo(String pelo) {
         pelo = pelo.toLowerCase();
+        pelo = pelo.trim();
         if (pelo.equals("negro")) {
             return true;
         } else if (pelo.equals("moreno")) {
@@ -198,7 +196,7 @@ public class Interaccion{
     }
 
     public boolean input(String input){
-        if (input.equals("S")||input.equals("B")||input.equals("H")){
+        if (input.equalsIgnoreCase("S")||input.equalsIgnoreCase("B")||input.equalsIgnoreCase("H")){
             return true;
         }
         return false;
