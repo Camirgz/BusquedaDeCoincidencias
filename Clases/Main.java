@@ -1,7 +1,9 @@
 package Clases;
 
-public class Main {
-    public static void Main(String [] args){
-        Interaccion.interaccion();
+public class Main{
+    public static void main(String args[]){
+        Interaccion a = new Interaccion();
+        
+        a.interaccion();
     }
 }
