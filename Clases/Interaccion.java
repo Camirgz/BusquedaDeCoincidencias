@@ -130,11 +130,11 @@ public class Interaccion{
             String entrada = scanner.nextLine();
             if(input(entrada)){
                 if(entrada.equalsIgnoreCase("B")){
-                    sospechosos.Busqueda(nombre, provincia, canton, edad, genero, estadoCivil, colorPelo, altura, sospechosos);
+                    historial.agregarHistorial(sospechosos.Busqueda(nombre, provincia, canton, edad, genero, estadoCivil, colorPelo, altura, sospechosos));
                     //metodo para hacer el arbol binario a partir del sistema de puntos.
                 }
                 if (entrada.equalsIgnoreCase("H")){
-                    mostrarHistorial();
+                    historial.imprimirHistorial();
                     //metodo para mostrar la lista de historial.
                 }
                 if (entrada.equalsIgnoreCase("S")){
