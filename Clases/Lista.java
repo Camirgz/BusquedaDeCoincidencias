@@ -88,12 +88,21 @@
         return this.cabeza;
     }
     
-    public Arbol Busqueda(String nombre, String provincia, String canton, String edad_str, String genero, String estadoCivil, String pelo, String altura_str, Lista sospechosos){
+    public Arbol Busqueda(String [] entradas, Lista sospechosos){
         
         Arbol busqueda = new Arbol();
-    
+
+        String nombre = entradas[0];
+        String provincia = entradas[1];
+        String canton = entradas[2];
+        String edad_str = entradas[3];
+        String genero = entradas [4];
+        String estadoCivil = entradas[5];
+        String pelo = entradas[6];
+        String altura_str = entradas[7];
+        
         String [] nombre_busqueda = nombre.split(" ");
-        int edad_busqueda= Integer.parseInt(edad_str);
+        int edad_busqueda = Integer.parseInt(edad_str);
         int altura_busqueda = Integer.parseInt(altura_str);
         
         if (sospechosos.getCabeza()==null){
@@ -108,7 +117,7 @@
                 String [] nombre_completo = auxiliar.getSospechoso().getNombre().split(" ");
                 for (int i = 0; i<nombre_busqueda.length; i++){
                     for (int k = 0; k<nombre_completo.length; k++){
-                        if (nombre_completo[k].equals(nombre_busqueda[i])){
+                        if (nombre_completo[k].equalsIgnoreCase(nombre_busqueda[i])){
                             indice_coincidencia++;
                         }
                     }
@@ -132,12 +141,12 @@
                 }
                 
                 //genero
-                if (auxiliar.getSospechoso().getGenero().equals(genero)){
+                if (auxiliar.getSospechoso().getGenero().equalsIgnoreCase(genero)){
                     indice_coincidencia = indice_coincidencia + 3;
                 }
                 
                 //pelo
-                if (auxiliar.getSospechoso().getPelo().equals(pelo)){
+                if (auxiliar.getSospechoso().getPelo().equalsIgnoreCase(pelo)){
                     indice_coincidencia++;
                 }
                 
@@ -146,7 +155,7 @@
                 if (altura<=altura_busqueda+4 || altura>=altura_busqueda-5){
                     indice_coincidencia = indice_coincidencia +2;
                 }
-                
+
                 busqueda.insertar(auxiliar.getSospechoso(), indice_coincidencia);
                 
                 auxiliar = auxiliar.getSiguiente();
@@ -200,6 +209,7 @@
             busqueda.insertar(auxiliar.getSospechoso(), indice_coincidencia);
         }
         
+        busqueda.asignarLugar(busqueda.getRaiz());
         busqueda.imprimir();
         
         return busqueda;
