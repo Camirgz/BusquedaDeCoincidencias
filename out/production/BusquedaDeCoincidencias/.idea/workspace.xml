@@ -5,10 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="64a42a51-70bf-497b-a25d-e0abff51eec5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Clases/Arbol.java" beforeDir="false" afterPath="$PROJECT_DIR$/Clases/Arbol.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Clases/Interaccion.java" beforeDir="false" afterPath="$PROJECT_DIR$/Clases/Interaccion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Clases/Lista.java" beforeDir="false" afterPath="$PROJECT_DIR$/Clases/Lista.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/BusquedaDeCoincidencias/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/BusquedaDeCoincidencias/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,6 +53,10 @@
       <workItem from="1701661810739" duration="844000" />
       <workItem from="1701663126042" duration="1003000" />
       <workItem from="1701704441792" duration="969000" />
+      <workItem from="1701719952122" duration="202000" />
+      <workItem from="1701720222105" duration="1553000" />
+      <workItem from="1701721959800" duration="106000" />
+      <workItem from="1701722090159" duration="580000" />
     </task>
     <servers />
   </component>

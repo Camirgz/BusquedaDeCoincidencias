@@ -1,5 +1,3 @@
-package Clases;
-
 public class Arbol{
     Nodo raiz;
     

@@ -1,6 +1,3 @@
-package Clases;
-
-
 public class Validaciones {
 
     public boolean strings(String nombre) {
