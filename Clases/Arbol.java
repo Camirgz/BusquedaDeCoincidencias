@@ -154,11 +154,9 @@ public class Arbol{
             imprimirInterno (inicio.getHijo_derecha());
         }
         
-        System.out.println("===" + inicio.getLugar() + "================================================");
+        System.out.println("-" + inicio.getLugar() + "-------------------------------------------");
         inicio.getSospechoso().imprimirSospechoso();
         
-        
-        System.out.println("\n");
         if (inicio.getHijo_izquierda() != null) {
             imprimirInterno (inicio.getHijo_izquierda());
         }
