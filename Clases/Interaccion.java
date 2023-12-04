@@ -1,10 +1,10 @@
-package Clases;
-
 import java.util.Scanner;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.InputMismatchException;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Interaccion{
     
@@ -17,37 +17,37 @@ public class Interaccion{
         MenuPrincipal();
     }
     
-    public void CargarArchivos(){
-        Scanner in = new Scanner (System.in);
-        
-        boolean continuar = true;
-        
-        while (continuar){
-            continuar = false;
+    public void CargarArchivos() {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Seleccione un archivo CSV");
+        fileChooser.setFileFilter(new FileNameExtensionFilter("Archivos CSV (*.csv)", "csv"));
+
+        int userSelection = fileChooser.showOpenDialog(null);
+
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            String csvFile = fileChooser.getSelectedFile().getAbsolutePath();
             
-            System.out.println("Ingrese el nombre del archivo: ");
-            
-            String csvFile = in.nextLine();
-            
-            try{
+            try {
                 BufferedReader br = new BufferedReader(new FileReader(csvFile));
                 String line;
-    
+
                 while ((line = br.readLine()) != null) {
                     String[] datos = line.split(",");
                     
-                    if (validaciones(datos)){
+                    if (validaciones(datos)) {
                         sospechosos.agregar(datos);
                     }
                 }
+
+                System.out.println("El archivo fue validado");
             } catch (IOException e) {
                 System.out.println("Error tipo: " + e.getMessage());
                 System.out.println("Intente de nuevo");
-                continuar = true;
+                CargarArchivos(); // Vuelve a llamar a la función en caso de error
             }
+        } else {
+            System.out.println("Operación cancelada por el usuario");
         }
-        
-        System.out.println("El archivo fue validado");
     }
     
     public String[] PedirEntradas(){
