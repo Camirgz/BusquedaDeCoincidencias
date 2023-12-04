@@ -6,13 +6,21 @@
         private Sospechoso sospechoso;
         private Nodo siguiente;
         private Arbol busqueda;
+        private String entrada;
+        private int numero_busqueda;
     
         public Nodo(Sospechoso contenido) {
             this.sospechoso = contenido;
         }
         
-        public Nodo(Arbol busqueda){
+        public Nodo(Arbol busqueda, String entrada, int numero){
             this.busqueda = busqueda;
+            this.entrada = entrada;
+            this.numero_busqueda = numero;
+        }
+        
+        public int getNumero_busqueda(){
+            return this.numero_busqueda;
         }
         
         public void imprimir() {
@@ -34,6 +42,10 @@
         public Arbol getBusqueda(){
             return this.busqueda;
         }
+        
+        public String getEntrada(){
+            return this.entrada;
+        }
     }
     
     public void agregar (String [] array) {
@@ -52,9 +64,9 @@
         }
     }
     
-    public void agregarHistorial(Arbol busqueda){
+    public void agregarHistorial(Arbol busqueda, String entrada, int numero){
         
-        Nodo nuevo = new Nodo (busqueda);
+        Nodo nuevo = new Nodo (busqueda, entrada, numero);
         
         if (this.cabeza == null){
             this.cabeza = nuevo;
@@ -75,13 +87,25 @@
         }
     }
     
-    public void imprimirHistorial(){
+    public void imprimirBusqueda(){
         Nodo auxiliar = this.cabeza;
         while(auxiliar!=null){
-            auxiliar.getBusqueda().imprimir();
+            System.out.println(auxiliar.getNumero_busqueda() + "- " + auxiliar.getEntrada());
             auxiliar = auxiliar.getSiguiente();
         }
-        System.out.println("----------FIN--------");
+    }
+    
+    public void imprimirHistorial(int lugar){
+        Nodo imprimir = buscarNodo(lugar);
+        imprimir.getBusqueda().imprimir();
+    }
+    
+    public Nodo buscarNodo(int lugar){
+        Nodo auxiliar = this.cabeza;
+        while(auxiliar.getNumero_busqueda()!=lugar){
+            auxiliar = auxiliar.getSiguiente();
+        }
+        return auxiliar;
     }
     
     public Nodo getCabeza(){
