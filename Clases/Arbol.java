@@ -10,6 +10,15 @@ public class Arbol{
         private int indice_coincidencia;
         private Nodo hijo_izquierda;
         private Nodo hijo_derecha;
+        private int lugar;
+        
+        public int getLugar(){
+            return this.lugar;
+        }
+        
+        public void setLugar(int lugar){
+            this.lugar = lugar;
+        }
         
         public Nodo (String [] informacion){
             this.sospechoso = new Sospechoso (informacion);
@@ -54,19 +63,20 @@ public class Arbol{
     }
     
     public void insertar(Sospechoso sospechoso, int indice_coincidencia) {
+        
         if (this.raiz == null) {
             this.raiz = new Nodo (sospechoso, indice_coincidencia);
         } else {
             Nodo auxiliar = this.raiz;
-            while ((indice_coincidencia < auxiliar.getIndice_Coincidencia() && auxiliar.getHijo_izquierda() != null) ||
+            while ((indice_coincidencia <= auxiliar.getIndice_Coincidencia() && auxiliar.getHijo_izquierda() != null) ||
                 (indice_coincidencia > auxiliar.getIndice_Coincidencia() && auxiliar.getHijo_derecha() != null)) {
-                if (auxiliar.getHijo_izquierda() != null && indice_coincidencia < auxiliar.getIndice_Coincidencia() ) {
+                if (auxiliar.getHijo_izquierda() != null && indice_coincidencia <= auxiliar.getIndice_Coincidencia() ) {
                     auxiliar = auxiliar.getHijo_izquierda();
                 } else if (auxiliar.getHijo_derecha() != null && indice_coincidencia > auxiliar.getIndice_Coincidencia()) {
                     auxiliar = auxiliar.getHijo_derecha();
                 }
             }
-            if ( indice_coincidencia < auxiliar.getIndice_Coincidencia() ) {
+            if ( indice_coincidencia <= auxiliar.getIndice_Coincidencia() ) {
                 auxiliar.setHijo_izquierda( new Nodo(sospechoso, indice_coincidencia));
             }
             else if ( indice_coincidencia > auxiliar.getIndice_Coincidencia() ) {
@@ -75,19 +85,119 @@ public class Arbol{
         }
     }
     
-    //eliminar nodo
+    public void eliminar (int lugar){
+        
+        Nodo eliminado = buscarNodo (lugar);
+        
+        Nodo nueva_raiz;
+        if (eliminado.getHijo_derecha()!=null){
+                nueva_raiz = buscarHijoExtremoIzquierda(eliminado.getHijo_derecha());
+                Nodo papa_nueva_raiz = buscarPapa (nueva_raiz, nueva_raiz.getLugar());
+                papa_nueva_raiz.setHijo_derecha(null);
+        } else{
+                nueva_raiz = buscarHijoExtremoDerecha(eliminado.getHijo_izquierda());
+                Nodo papa_nueva_raiz = buscarPapa (nueva_raiz, nueva_raiz.getLugar());
+                papa_nueva_raiz.setHijo_izquierda(null);
+        }
+
+        if (lugar == 1){
+            nueva_raiz.setHijo_izquierda(this.raiz.getHijo_izquierda());
+            nueva_raiz.setHijo_derecha(this.raiz.getHijo_derecha());
+            this.raiz = nueva_raiz;
+        } else{
+            Nodo papa_eliminado = buscarPapa (eliminado, lugar);
+            
+            nueva_raiz.setHijo_izquierda(eliminado.getHijo_izquierda());
+            nueva_raiz.setHijo_derecha(eliminado.getHijo_derecha());
+            
+            if (papa_eliminado.getHijo_izquierda()!= null && papa_eliminado.getHijo_izquierda().getLugar()==lugar){
+                papa_eliminado.setHijo_izquierda(nueva_raiz);
+            } else if (papa_eliminado.getHijo_derecha()!= null && papa_eliminado.getHijo_derecha().getLugar()==lugar){
+                papa_eliminado.setHijo_derecha(nueva_raiz);
+            }
+        } 
+    }
     
-        private void imprimirInterno (Nodo inicio) {
-        int contador = 1;
+    public Nodo buscarPapa (Nodo hijo, int lugar){
+        Nodo papa_potencial_1 = buscarNodo (hijo.getLugar()+1);
+        Nodo papa_potencial_2 = buscarNodo (hijo.getLugar()-1);
+        Nodo papa;
+        
+        if (papa_potencial_1.getHijo_derecha().getLugar()!=lugar || papa_potencial_1.getHijo_izquierda().getLugar()!=lugar){
+            papa = papa_potencial_2;
+        } else{
+            papa = papa_potencial_1;
+        }
+        return papa;
+    }
+    
+    public Nodo buscarHijoExtremoIzquierda(Nodo inicio){
+        
+        if (inicio.getHijo_izquierda() != null){
+            inicio = buscarHijoExtremoIzquierda (inicio);
+        }
+        
+        return inicio;
+    }
+    
+    public Nodo buscarHijoExtremoDerecha(Nodo inicio){
+        if (inicio.getHijo_izquierda() != null){
+            inicio = buscarHijoExtremoDerecha (inicio);
+        }
+        
+        return inicio;
+    }
+    
+    private void imprimirInterno (Nodo inicio) {
             
         if (inicio.getHijo_derecha() != null) {
             imprimirInterno (inicio.getHijo_derecha());
         }
+        
+        System.out.println("===" + inicio.getLugar() + "================================================");
         inicio.getSospechoso().imprimirSospechoso();
-        System.out.println("" + contador + "\n");
-        contador++;
+        
+        
+        System.out.println("\n");
         if (inicio.getHijo_izquierda() != null) {
             imprimirInterno (inicio.getHijo_izquierda());
+        }
+    }
+    
+    private Nodo buscarNodoInterno (Nodo inicio, int lugar){
+        if (inicio.getHijo_derecha() != null) {
+            if (inicio.getLugar() == lugar){
+                return inicio;
+            }
+        }
+        else if (inicio.getHijo_izquierda() != null) {
+            if (inicio.getLugar() == lugar){
+                return inicio;
+            }
+        }
+        else{
+            return inicio;
+        }
+        return null;
+    }
+    
+    public Nodo buscarNodo (int lugar){
+        return buscarNodoInterno(this.raiz, lugar);
+    }
+    
+    private int contadorTemporal;
+    
+        public void asignarLugar (Nodo inicio) {
+            
+        if (inicio.getHijo_derecha() != null) {
+            asignarLugar (inicio.getHijo_derecha());
+        }
+        
+        contadorTemporal++;
+        inicio.setLugar(contadorTemporal);
+        
+        if (inicio.getHijo_izquierda() != null) {
+            asignarLugar (inicio.getHijo_izquierda());
         }
     }
     
