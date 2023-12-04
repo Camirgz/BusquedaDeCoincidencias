@@ -2,6 +2,7 @@ import java.util.Scanner;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.InputMismatchException;
 
 public class Interaccion{
     
@@ -47,7 +48,7 @@ public class Interaccion{
         System.out.println("El archivo fue validado\n");
     }
     
-    public void MenuPrincipal(){
+    public String[] PedirEntradas(){
         Scanner scanner = new Scanner (System.in);
         
         System.out.println("Ingrese los datos del sospechoso/a por buscar");
@@ -86,7 +87,7 @@ public class Interaccion{
         }
 
         while(true){
-            System.out.println("Ingrese edad por buscar: ");
+            System.out.println("Ingrese edad por buscar (18-100): ");
             edad = scanner.nextLine();
             if(edad(edad)){
                 break;
@@ -94,7 +95,7 @@ public class Interaccion{
         }
 
         while(true){
-            System.out.println("Ingrese genero por buscar: ");
+            System.out.println("Ingrese genero por buscar (Masculino, femenino, otro): ");
             genero = scanner.nextLine();
             if(genero(genero)){
                 break;
@@ -102,7 +103,7 @@ public class Interaccion{
         }
         
         while(true){
-            System.out.println("Ingrese el estado civil: ");
+            System.out.println("Ingrese el estado civil (Casad@, solter@, viud@ o divorciad@): ");
             estadoCivil = scanner.nextLine();
             if (estadoCivil(estadoCivil)){
                 break;
@@ -110,7 +111,7 @@ public class Interaccion{
         }
 
         while(true){
-            System.out.println("Ingrese color de pelo por buscar: ");
+            System.out.println("Ingrese color de pelo por buscar (Negr@, moren@, castann@ y rubi@): ");
             colorPelo = scanner.nextLine();
             if (pelo(colorPelo)) {
                 break;
@@ -118,20 +119,29 @@ public class Interaccion{
         }
 
         while(true){
-            System.out.println("Ingrese altura por buscar: ");
+            System.out.println("Ingrese altura por buscar (100-200): ");
             altura = scanner.nextLine();
             if(altura(altura)){
                 break;
             }
         }
         
+        String [] entradas = {nombre, provincia, canton, edad, genero, estadoCivil, colorPelo, altura};
+        return entradas;
+    }
+    
+    public void MenuPrincipal (){
+        Scanner scanner = new Scanner (System.in);
+        
         while(true){
             System.out.println("Ingrese [S] para salir, [B] para buscar o [H] para ver el historial");
             String entrada = scanner.nextLine();
             if(input(entrada)){
                 if(entrada.equalsIgnoreCase("B")){
-                    historial.agregarHistorial(sospechosos.Busqueda(nombre, provincia, canton, edad, genero, estadoCivil, colorPelo, altura, sospechosos));
+                    String [] entradas = PedirEntradas();
+                    historial.agregarHistorial(sospechosos.Busqueda(entradas, sospechosos));
                     //metodo para hacer el arbol binario a partir del sistema de puntos.
+                    //agregarMenuSecundario
                 }
                 if (entrada.equalsIgnoreCase("H")){
                     historial.imprimirHistorial();
@@ -155,11 +165,15 @@ public class Interaccion{
     }
 
     public boolean edad(String edadStr) {
-        int edad = Integer.parseInt(edadStr);
-        if (edad >= 18 && edad <= 100) {
-            return true;
+        try{
+            int edad = Integer.parseInt(edadStr);
+            if (edad >= 18 && edad <= 100) {
+                return true;
+            }
+            return false;
+        } catch (NumberFormatException e){
+            return false;
         }
-        return false;
     }
 
     public boolean genero(String genero) {
