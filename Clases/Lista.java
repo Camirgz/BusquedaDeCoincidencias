@@ -1,4 +1,5 @@
- public class Lista
+package Clases;
+public class Lista
 {
     private Nodo cabeza;
     
