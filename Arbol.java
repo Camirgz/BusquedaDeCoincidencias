@@ -57,6 +57,10 @@ public class Arbol{
             return this.sospechoso;
         }
         
+        public void setSospechoso(Sospechoso nuevo){
+            this.sospechoso = nuevo;
+        }
+        
         public int getIndice_Coincidencia(){
             return this.indice_coincidencia;
         }
@@ -84,51 +88,35 @@ public class Arbol{
             }
         }
     }
-    
-    public void eliminar (int lugar){
-        
-        Nodo eliminado = buscarNodo (lugar);
-        
-        Nodo nueva_raiz;
-        if (eliminado.getHijo_derecha()!=null){
-                nueva_raiz = buscarHijoExtremoIzquierda(eliminado.getHijo_derecha());
-                Nodo papa_nueva_raiz = buscarPapa (nueva_raiz, nueva_raiz.getLugar());
-                papa_nueva_raiz.setHijo_derecha(null);
-        } else{
-                nueva_raiz = buscarHijoExtremoDerecha(eliminado.getHijo_izquierda());
-                Nodo papa_nueva_raiz = buscarPapa (nueva_raiz, nueva_raiz.getLugar());
-                papa_nueva_raiz.setHijo_izquierda(null);
-        }
 
-        if (lugar == 1){
-            nueva_raiz.setHijo_izquierda(this.raiz.getHijo_izquierda());
-            nueva_raiz.setHijo_derecha(this.raiz.getHijo_derecha());
-            this.raiz = nueva_raiz;
-        } else{
-            Nodo papa_eliminado = buscarPapa (eliminado, lugar);
-            
-            nueva_raiz.setHijo_izquierda(eliminado.getHijo_izquierda());
-            nueva_raiz.setHijo_derecha(eliminado.getHijo_derecha());
-            
-            if (papa_eliminado.getHijo_izquierda()!= null && papa_eliminado.getHijo_izquierda().getLugar()==lugar){
-                papa_eliminado.setHijo_izquierda(nueva_raiz);
-            } else if (papa_eliminado.getHijo_derecha()!= null && papa_eliminado.getHijo_derecha().getLugar()==lugar){
-                papa_eliminado.setHijo_derecha(nueva_raiz);
-            }
-        } 
+    public void eliminar(int contadorTemporal) {
+        this.raiz = eliminarInterno(raiz, contadorTemporal);
+        actualizarContadores();
     }
     
-    public Nodo buscarPapa (Nodo hijo, int lugar){
-        Nodo papa_potencial_1 = buscarNodo (hijo.getLugar()+1);
-        Nodo papa_potencial_2 = buscarNodo (hijo.getLugar()-1);
-        Nodo papa;
-        
-        if (papa_potencial_1.getHijo_derecha().getLugar()!=lugar || papa_potencial_1.getHijo_izquierda().getLugar()!=lugar){
-            papa = papa_potencial_2;
-        } else{
-            papa = papa_potencial_1;
+    private Nodo eliminarInterno(Nodo nodo, int contadorTemporal) {
+        if (nodo == null) {
+            return nodo;
         }
-        return papa;
+    
+        if (contadorTemporal > nodo.getLugar()) {
+            nodo.setHijo_izquierda(eliminarInterno(nodo.getHijo_izquierda(), contadorTemporal));
+        } else if (contadorTemporal < nodo.getLugar()) {
+            nodo.setHijo_derecha(eliminarInterno(nodo.getHijo_derecha(), contadorTemporal));
+        } else {
+            if (nodo.getHijo_izquierda() == null) {
+                return nodo.getHijo_derecha(); // Caso sin hijo izquierdo
+            } else if (nodo.getHijo_derecha() == null) {
+                return nodo.getHijo_izquierda(); // Caso sin hijo derecho
+            }
+    
+            Nodo sucesor = buscarHijoExtremoIzquierda(nodo.getHijo_derecha());
+            nodo.setSospechoso(sucesor.getSospechoso());
+            nodo.setIndice_coincidencia(sucesor.getIndice_Coincidencia());
+    
+            nodo.setHijo_derecha(eliminarInterno(nodo.getHijo_derecha(), sucesor.getLugar()));
+        }
+        return nodo;
     }
     
     public Nodo buscarHijoExtremoIzquierda(Nodo inicio){
@@ -146,6 +134,21 @@ public class Arbol{
         }
         
         return inicio;
+    }
+    
+    public void actualizarContadores() {
+        contadorTemporal = 0; // Reiniciar el contador temporal a cero
+        actualizarContadoresInterno(raiz); // Llama al método interno para actualizar los contadores
+    }
+    
+    private int contadorTemporal;
+    
+    private void actualizarContadoresInterno(Nodo nodo) {
+        if (nodo != null) {
+            actualizarContadoresInterno(nodo.getHijo_derecha());
+            nodo.setLugar(++contadorTemporal);
+            actualizarContadoresInterno(nodo.getHijo_izquierda());
+        }
     }
     
     private void imprimirInterno (Nodo inicio) {
@@ -183,7 +186,9 @@ public class Arbol{
         return buscarNodoInterno(this.raiz, lugar);
     }
     
-    private int contadorTemporal;
+    public int getContadorTemporal(){
+        return this.contadorTemporal;
+    }
     
         public void asignarLugar (Nodo inicio) {
             
