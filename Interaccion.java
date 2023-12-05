@@ -292,13 +292,13 @@ public class Interaccion{
     public boolean pelo(String pelo) {
         pelo = pelo.toLowerCase();
         pelo = pelo.trim();
-        if (pelo.equals("negro")) {
+        if (pelo.equals("negro") || pelo.equals("negra")) {
             return true;
-        } else if (pelo.equals("moreno")) {
+        } else if (pelo.equals("moreno") || pelo.equals("morena")) {
             return true;
-        } else if (pelo.equals("castanno")) {
+        } else if (pelo.equals("castanno") || pelo.equals("castanna")) {
             return true;
-        } else if (pelo.equals("rubio")) {
+        } else if (pelo.equals("rubio") || pelo.equals("rubia")) {
             return true;
         }
         return false;
