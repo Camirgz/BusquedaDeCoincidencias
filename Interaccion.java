@@ -149,7 +149,40 @@ public class Interaccion{
                     historial.agregarHistorial(sospechosos.Busqueda(entradas, sospechosos), print, cantidad_busquedas);
                     //metodo para hacer el arbol binario a partir del sistema de puntos.
                     System.out.println("-Fin------------------------------------------");
-                    //agregarMenuSecundario
+                    
+                    if (historial.buscarNodo(cantidad_busquedas).getBusqueda().getContadorTemporal()>0){
+                        
+                        while(true){
+                            String accion;
+                            while(true){
+                                System.out.println("\nIngrese T para terminar la búsqueda, o M si desea eliminar una sospecha: ");
+                                accion = scanner.nextLine();
+                                if (accion(accion)){
+                                    break;
+                                }
+                            }
+                            
+                            if (accion.equalsIgnoreCase("T")){
+                                break;
+                            }
+                            
+                            String nodo;
+                            while(true){
+                                System.out.println("¿Cuál sospecha desea eliminar?: ");
+                                nodo = scanner.nextLine();
+                                if (numero_busqueda(nodo, historial.buscarNodo(cantidad_busquedas).getBusqueda().getContadorTemporal())){
+                                    break;
+                                }
+                            }
+                    
+                            historial.buscarNodo(cantidad_busquedas).getBusqueda().eliminar(Integer.parseInt(nodo));
+
+                            System.out.println("\n== RESULTADOS DE MEJOR A PEOR COINCIDENCIA ==");
+                            historial.buscarNodo(cantidad_busquedas).getBusqueda().imprimir();
+                            System.out.println("-Fin------------------------------------------");
+                        
+                        }
+                    }
                 }
                 if (entrada.equalsIgnoreCase("H")){
                     if (cantidad_busquedas==1){
@@ -159,7 +192,6 @@ public class Interaccion{
                     }
                     historial.imprimirBusqueda();
                     //metodo para mostrar la lista de historial.
-                    
                     if (cantidad_busquedas>0){
                         String numero_busqueda;
                         while (true){
@@ -189,6 +221,20 @@ public class Interaccion{
             }
         }
         return true;
+    }
+    
+    public boolean accion(String accion){
+        if (accion.length()>1 || accion.length()<1){
+            return false;
+        } else{
+            if (accion.equalsIgnoreCase("T")){
+                return true;
+            } else if (accion.equalsIgnoreCase("M")){
+                return true;
+            } else{
+                return false;
+            }
+        }
     }
     
     public boolean numero_busqueda(String numero, int cantidad_busquedas){
